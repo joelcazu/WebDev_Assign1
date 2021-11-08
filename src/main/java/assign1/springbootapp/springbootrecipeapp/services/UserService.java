@@ -1,3 +1,14 @@
+/*********************************************************************************
+ * Project: Recipe - SpringBoot App
+ * Assignment: Assignment 1
+ * Author(s): Trisha Conde
+ * Student Number: 101252967
+ * Date: Nov 7, 2021
+ * Description: Interface that takes the user’s information during registration,
+ *              process it and store in the database.
+ **********************************************************************************/
+
+
 package assign1.springbootapp.springbootrecipeapp.services;
 
 import java.util.List;

@@ -1,3 +1,13 @@
+/*********************************************************************************
+ * Project: Recipe - SpringBoot App
+ * Assignment: Assignment 1
+ * Author(s): Trisha Conde
+ * Student Number: 101252967
+ * Date: Nov 7, 2021
+ * Description: responsible for handling the registration process, it will collect user
+ *information and store in the database. It will have all the information required for User.java
+ **********************************************************************************/
+
 package assign1.springbootapp.springbootrecipeapp.dto;
 
 public class UserRegistrationDto {
