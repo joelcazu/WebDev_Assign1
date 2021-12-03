@@ -1,61 +1,79 @@
+/*********************************************************************************
+ * Project: Recipe - SpringBoot App
+ * Assignment: Assignment 1
+ * Author(s): Joel Santos
+ * Student Number: 101276709
+ * Date: Nov 7, 2021
+ * Description: This java file represents the user data/information stored in the database
+ **********************************************************************************/
+
+
 package assign1.springbootapp.springbootrecipeapp.model;
 
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "User")
+@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name="email", nullable = false)
-    private String email;
-
-    @Column(name = "password")
-    private String password;
-
-    @Column(name = "name")
-    private String name;
+    @Column(name = "first_name")
+    private String firstName;
 
     @Column(name="last_name")
-    private String last_name;
+    private String lastName;
 
-    @Column(name = "enable")
-    private boolean enabled;
+    private String email;
 
-    @Column(name = "username")
-    private String username;
+    private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name="users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+
     private Collection<Role> roles;
 
     public User(){
 
     }
 
-    public User(String email, String password, String name, String last_name, boolean enabled, String username) {
+    public User(String firstName, String lastName, String email, String password, Collection<Role> roles) {
+
+        super();
         this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.password = password;
-        this.name = name;
-        this.last_name = last_name;
-        this.enabled = enabled;
-        this.username = username;
+        this.roles = roles;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getFirstName(){
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -71,40 +89,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        this.password = passwordEncoder.encode(password);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+        this.password = password;
     }
 
     public Collection<Role> getRoles() {
